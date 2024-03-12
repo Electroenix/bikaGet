@@ -145,8 +145,6 @@ def get_comic_chapter_pages(cid, chapter_id, page_cnt=1):
     pages_max = int(resp_json["data"]["pages"]["pages"])
     if page_cnt < pages_max:
         get_comic_chapter_pages(cid, chapter_id, page_cnt + 1)
-    # else:
-    #     print(bika_comic_info.chapter[chapter_id]["pages"])
 
 
 def download(path, url, auto_retry=False):
@@ -174,6 +172,7 @@ def download_images(chapter_id, dir):
     image_index = 1
     threads_list = []
     pool = ThreadPoolExecutor(max_workers=10)
+
     for page in bika_comic_info.chapter[chapter_id]["pages"]:
         # 这里 page["path"] 不用处理也能get到图片，但是看浏览器里地址 “static/” 后面直接跟的文件名，就改成一样吧
         url = page["media"]["fileServer"] + "/static/" + page["media"]["path"].split("/")[-1]
@@ -222,6 +221,7 @@ def request_comic_info(view_url, comic_info, chapter_id_list):
         chapter_info.metadata.title = bika_comic_info.chapter[int(chapter_id)]["title"]
         chapter_info.metadata.creator = bika_comic_info.author
         chapter_info.metadata.subjects = bika_comic_info.genres
+
         if "英語 ENG" in bika_comic_info.genres:
             chapter_info.metadata.language = "en"
         elif "生肉" in bika_comic_info.genres:

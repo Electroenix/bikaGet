@@ -18,6 +18,7 @@ def make_filename_valid(path):
     path = path.replace('"', '')
     path = path.replace('|', '')
     path = path.rstrip()
+    path = path.rstrip('.')
     return path
 
 
@@ -47,12 +48,12 @@ if __name__ == "__main__":
 
     '''
     目录结构
-        comic 在脚本目录下创建用于保存下载的漫画
-        |- series_title 漫画系列名
-            |- series_title_001.epub 保存的epub格式的漫画
+        comic/  在脚本目录下创建用于保存下载的漫画
+        |- series_title/  漫画系列名
+            |- series_title_001.epub  保存的epub格式的漫画
             |- series_title_002.epub
             |- series_title_xxx.epub
-            |- chapter_title 以章节名命名的文件夹，临时存放下载的图片，转换成epub格式后就会被删除
+            |- chapter_title/  以章节名命名的文件夹，临时存放下载的图片，转换成epub格式后就会被删除
                 |- 00001.jpg
                 |- 00002.jpg
                 |- xxxxx.jpg
@@ -80,7 +81,7 @@ if __name__ == "__main__":
         epub_name = make_filename_valid(comic_info.series_title) + "_%03d.epub" % chapter_index
         epub_path = comic_dir + "/" + epub_name
 
-        if config["option"]["trans_epub"] == "true":
+        if config["option"]["epub"] == "true":
             print("\r\nkcc-c2e开始转换epub...")
 
             # 调用kcc-c2e转换图片为epub格式
@@ -93,7 +94,7 @@ if __name__ == "__main__":
             print("\r\n转换完成, 漫画保存在%s" % epub_path)
 
         # 删除图片文件夹
-        if config["option"]["del_image"] == "true" and config["path"]["kcc-c2e"]:
+        if config["option"]["delete_image"] == "true" and config["path"]["kcc-c2e"]:
             shutil.rmtree(chapter_dir)
 
         chapter_index = chapter_index + 1
