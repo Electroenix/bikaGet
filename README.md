@@ -1,5 +1,6 @@
 # bikaGet
 下载哔咔本子，可以转换为epub格式，自动填充元数据
+> 此项目已集成至新项目[seseget-cli - 支持多站点的视频/漫画资源下载工具](https://github.com/Electroenix/seseget-cli)，此仓库不再更新
 
 ## 功能
 * 下载哔咔漫画
